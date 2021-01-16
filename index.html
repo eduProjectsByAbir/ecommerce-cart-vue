@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>ইসলামি বই ডট কম</title>
@@ -15,7 +16,8 @@
                 <a href="#" @click.prevent="isShowingCart = false"><strong>ইসলামি বই ডট কম</strong></a>
 
                 <div class="text-right pull-right cart-info">
-                    <span class="stats">{{ cart.items.length }} <template v-if="cart.items.length == 1">item</template> <template v-else>items</template> in cart, totalling {{ cartTotal | currency }}</span>
+                    <span class="stats">{{ cart.items.length }} <template v-if="cart.items.length == 1">item</template>
+                        <template v-else>items</template> in cart, totalling {{ cartTotal | currency }}</span>
                     <button class="btn btn-primary" @click="isShowingCart = true">শপিংব্যাগ দেখুন</button>
                 </div>
             </nav>
@@ -35,10 +37,12 @@
                                 </div>
 
                                 <div class="col-xs-8 flex flex-row align-center justify-right">
-                                    <div class="number-in-stock" :class="{ few: product.inStock < 10, none: product.inStock == 0}">
+                                    <div class="number-in-stock"
+                                        :class="{ few: product.inStock < 10, none: product.inStock == 0}">
                                         {{ product.inStock }} in stock
                                     </div>
-                                    <button class="btn btn-success" @click="addProductToCart(product)" :disabled="product.inStock == 0">ব্যাগে যুক্ত করুন</button>
+                                    <button class="btn btn-success" @click="addProductToCart(product)"
+                                        :disabled="product.inStock == 0">ব্যাগে যুক্ত করুন</button>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +51,47 @@
             </div>
             <div v-else>
                 <h1>Cart</h1>
-                <p>Cart will be shown here.</p>
+                <table v-if="cart.items.length > 0" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>নাম</th>
+                            <th>পরিমাণ</th>
+                            <th>মূল্য</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in cart.items">
+                            <td> {{ item.product.name }}</td>
+                            <td> {{ item.quantity }}</td>
+                            <td> {{ item.quantity * item.product.price | currency }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <strong>Subtotal</strong>
+                            </td>
+                            <td>{{ cartTotal | currency }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <strong>ট্যাক্স</strong>
+                            </td>
+                            <td> {{ taxAmount | currency}} </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <strong>মোট</strong>
+                            </td>
+                            <td> {{ cartTotal + taxAmount | currency }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="2">
+                                <td><button class="btn btn-success">চেকআউট করুন</button></td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p v-else>আপনার কার্টে কোনো বই নেই!</p>
             </div>
         </div>
     </div>
@@ -55,4 +99,5 @@
     <script src="js/vue.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
