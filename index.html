@@ -62,7 +62,7 @@
                     <tbody>
                         <tr v-for="item in cart.items">
                             <td> {{ item.product.name }}</td>
-                            <td> {{ item.quantity }}</td>
+                            <td> <button class="btn" @click="increaseQuantity(item)" :disabled="item.product.inStock == 0" :class="{ 'btn-success': item.product.inStock > 0, 'btn-danger': item.product.inStock == 0}">+</button> &nbsp; {{ item.quantity }} &nbsp; <button class="btn btn-danger" @click="decreaseQuantity(item)">-</button></td>
                             <td> {{ item.quantity * item.product.price | currency }}</td>
                         </tr>
                         <tr>
