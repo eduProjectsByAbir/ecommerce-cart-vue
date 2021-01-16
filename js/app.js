@@ -104,6 +104,16 @@ new Vue({
             }
         },
 
+        checkout: function() {
+            if (confirm('আপনি কি সত্যিই বই গুলো কিনতে চান?')) {
+                this.cart.items.forEach(function(item) {
+                    item.product.inStock += item.quantity;
+                });
+
+                this.cart.items = [];
+            }
+        },
+
         removeItemFromCart: function (cartItem) {
             var index = this.cart.items.indexOf(cartItem);
 
