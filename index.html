@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>E-commerce Example Application</title>
+    <title>ইসলামি বই ডট কম</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -12,15 +12,15 @@
         <div class="container">
             <br>
             <nav id="top-navigation" class="well well-sm flex flex-row align-center">
-                <a href="#"><strong>E-commerce Inc.</strong></a>
+                <a href="#" @click.prevent="isShowingCart = false"><strong>ইসলামি বই ডট কম</strong></a>
 
                 <div class="text-right pull-right cart-info">
                     <span class="stats">{{ cart.items.length }} <template v-if="cart.items.length == 1">item</template> <template v-else>items</template> in cart, totalling {{ cartTotal | currency }}</span>
-                    <button class="btn btn-primary">View Cart</button>
+                    <button class="btn btn-primary" @click="isShowingCart = true">শপিংব্যাগ দেখুন</button>
                 </div>
             </nav>
 
-            <div id="products" class="row list-group">
+            <div v-if="!isShowingCart" id="products" class="row list-group">
                 <div v-for="product in products" class="item col-xs-4">
                     <div class="thumbnail">
                         <img class="group list-group-image" src="images/product.png">
@@ -38,12 +38,16 @@
                                     <div class="number-in-stock" :class="{ few: product.inStock < 10, none: product.inStock == 0}">
                                         {{ product.inStock }} in stock
                                     </div>
-                                    <button class="btn btn-success" @click="addProductToCart(product)" :disabled="product.inStock == 0">Add to cart</button>
+                                    <button class="btn btn-success" @click="addProductToCart(product)" :disabled="product.inStock == 0">ব্যাগে যুক্ত করুন</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                <h1>Cart</h1>
+                <p>Cart will be shown here.</p>
             </div>
         </div>
     </div>

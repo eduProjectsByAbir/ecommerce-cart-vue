@@ -1,9 +1,11 @@
 new Vue({
     el: '#app',
     data: {
+        isShowingCart: false,
         cart: {
             items: []
         },
+
         products: [
             {
                 id: 1,
